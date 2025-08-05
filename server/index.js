@@ -10,12 +10,11 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Enable CORS before any routes
+// ✅ Fixed CORS config
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://epicbloggo.netlify.app/'],
+  origin: ['http://localhost:3000', 'https://epicbloggo.netlify.app'],
   credentials: true,
 }));
-
 
 app.use(express.json());
 
