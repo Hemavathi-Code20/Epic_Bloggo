@@ -74,3 +74,11 @@ PORT=5000
 
 # Run server
 npm start
+
+### ⚛️ Frontend Setup
+
+# Navigate to frontend folder
+cd client
+
+# Run server
+npm start
