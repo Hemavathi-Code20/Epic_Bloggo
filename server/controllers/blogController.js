@@ -11,18 +11,31 @@ exports.createBlog = async (req, res) => {
 };
 
 exports.getAllBlogs = async (req, res) => {
-    try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = 5;
-        const skip = (page - 1) * limit;
+  try {
+    const page = parseInt(req.query.page) || 1; 
+    const limit = parseInt(req.query.limit) || 3; 
+    const skip = (page - 1) * limit;
 
-        const blogs = await Blog.find().populate('author', 'email').sort({ createdAt: -1 }).skip(skip).limit(limit);
-        const total = await Blog.countDocuments();
-        res.json({ blogs, total, page });
-    } catch (err) {
-        res.status(500).json({ message: 'Server error' });
-    }
+    const blogs = await Blog.find()
+      .populate('author', 'email')
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const total = await Blog.countDocuments();
+    const totalPages = Math.ceil(total / limit);
+
+    res.json({
+      blogs,
+      total,
+      totalPages,
+      currentPage: page
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
 };
+
 
 exports.getBlogById = async (req, res) => {
     try {
@@ -56,13 +69,15 @@ exports.deleteBlog = async (req, res) => {
     try {
         const blog = await Blog.findById(req.params.id);
         if (!blog) return res.status(404).json({ message: 'Blog not found' });
+
         if (blog.author.toString() !== req.user.id) {
             return res.status(403).json({ message: 'Not authorized' });
         }
 
-        await blog.remove();
+        await blog.deleteOne(); // ✅ Updated from blog.remove()
         res.json({ message: 'Blog deleted' });
     } catch (err) {
+        console.error('Delete Blog Error:', err.message); // ✅ Debug log
         res.status(500).json({ message: 'Server error' });
     }
 };

@@ -2,56 +2,50 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import API from '../services/api';
 
-const EditBlog = () => {
+function EditBlog() {
   const { id } = useParams();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
   const navigate = useNavigate();
+  const [blog, setBlog] = useState({ title: '', content: '' });
 
   useEffect(() => {
     const fetchBlog = async () => {
       try {
         const res = await API.get(`/blogs/${id}`);
-        setTitle(res.data.title);
-        setContent(res.data.content);
+        setBlog(res.data);
       } catch (err) {
-        alert('Error loading blog');
+        console.error(err);
       }
     };
     fetchBlog();
   }, [id]);
 
-  const handleUpdate = async (e) => {
+  const handleChange = e => setBlog({ ...blog, [e.target.name]: e.target.value });
+
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await API.put(`/blogs/${id}`, { title, content });
+      await API.put(`/blogs/${id}`, blog);
       navigate(`/blogs/${id}`);
     } catch (err) {
-      alert('Error updating blog');
+      console.error(err);
     }
   };
 
   return (
-    <form onSubmit={handleUpdate} className="max-w-xl mx-auto mt-10 space-y-4">
-      <h2 className="text-2xl font-bold">Edit Blog</h2>
-      <input
-        type="text"
-        placeholder="Title"
-        className="w-full border p-2"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <textarea
-        placeholder="Content"
-        className="w-full border p-2 h-40"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        required
-      ></textarea>
-      <button className="bg-green-600 text-white px-4 py-2">Update</button>
-    </form>
+    <div className="max-w-3xl mx-auto p-6 mt-8 bg-white shadow-md rounded-lg animate-fadeIn">
+      <h2 className="text-3xl font-bold mb-6 text-center">Edit Blog</h2>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="title" value={blog.title} onChange={handleChange}
+          className="w-full px-4 py-2 mb-4 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <textarea name="content" value={blog.content} onChange={handleChange} rows={8}
+          className="w-full px-4 py-2 mb-6 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <button type="submit"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded transition duration-300">
+          Update
+        </button>
+      </form>
+    </div>
   );
-};
+}
 
 export default EditBlog;

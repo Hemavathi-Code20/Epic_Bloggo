@@ -11,18 +11,23 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between p-4 bg-blue-600 text-white">
-      <Link to="/" className="font-bold text-xl">MERN Blog</Link>
-      <div className="space-x-4">
+    <nav className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-teal-300 via-indigo-200 to-slate-300 shadow-md">
+      <Link to="/" className="font-bold text-xl text-gray-800">Epic_Bloggo</Link>
+      <div className="space-x-6 text-gray-700 font-medium">
         {token ? (
           <>
-            <Link to="/create">Create</Link>
-            <button onClick={handleLogout} className="hover:underline">Logout</button>
+            <Link to="/create" className="hover:text-gray-900 transition duration-200">Create Blog</Link>
+            <button
+              onClick={handleLogout}
+              className="hover:text-red-600 transition duration-200"
+            >
+              Logout
+            </button>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <Link to="/login" className="hover:text-gray-900 transition duration-200">Login</Link>
+            <Link to="/register" className="hover:text-gray-900 transition duration-200">Register</Link>
           </>
         )}
       </div>
