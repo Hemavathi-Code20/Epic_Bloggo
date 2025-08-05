@@ -69,7 +69,7 @@ npm start
 
 ```
 
-### 🔙 Backend
+### 🔙 Backend Setup
 
 ```bash
 # Navigate to backend folder
