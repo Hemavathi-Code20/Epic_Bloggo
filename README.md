@@ -58,6 +58,17 @@ A modern, responsive blog platform built with **React** (frontend) and **Node.js
 
 ## 🛠️ Installation & Running Locally
 
+### ⚛️ Frontend Setup
+
+```bash
+# Navigate to frontend folder
+cd client
+
+# Run 
+npm start
+
+```
+
 ### 🔙 Backend
 
 ```bash
@@ -75,10 +86,4 @@ PORT=5000
 # Run server
 npm start
 
-### ⚛️ Frontend Setup
 
-# Navigate to frontend folder
-cd client
-
-# Run server
-npm start
