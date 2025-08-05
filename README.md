@@ -15,19 +15,6 @@ A modern, responsive blog platform built with **React** (frontend) and **Node.js
 - ✅ Pagination on blog listing page
 - ✅ Responsive design for desktop & mobile
 - ✅ REST API built with Express.js & MongoDB
-- ✅ Cloud-hosted frontend and backend (e.g., on **Render**, **Vercel**, or **Netlify**)
-
----
-
-## 📸 Screenshots
-
-> Add screenshots here to showcase:
-> - Signup/Login UI
-> - Blog listing
-> - Blog creation
-> - Blog detail view
-
----
 
 ## 🧰 Tech Stack
 
@@ -75,7 +62,7 @@ A modern, responsive blog platform built with **React** (frontend) and **Node.js
 
 ```bash
 # Navigate to backend folder
-cd backend
+cd server
 
 # Install dependencies
 npm install
@@ -86,4 +73,4 @@ JWT_SECRET=your_jwt_secret
 PORT=5000
 
 # Run server
-npm run dev
+npm start
